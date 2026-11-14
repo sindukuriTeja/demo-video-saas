@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Generated audio/video files
+assets/*.wav
+assets/*.mp3
+recordings/*.mp4
+recordings/*.webm
+recordings/*.txt
+output/*.mp4
+output/*.webm
+
+# OpenVoice checkpoints (large model files - ~130MB)
+checkpoints_v2/
+
+# OpenVoice submodule (cloned repo - not part of this project)
+OpenVoice/
+
+# Test/debug files
+test_*.py
+test_*.mp4
+hero_filter.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
