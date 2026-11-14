@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Video SaaS - Screen Recording & Voice Narration</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">🎬</span>
+                <h1>Demo Video SaaS</h1>
+            </div>
+            <div class="header-status">
+                <span id="connection-status" class="status-badge">Connecting...</span>
+                <span id="openvoice-status" class="status-badge status-neutral">Voice: Checking</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Panel - Controls -->
+            <aside class="control-panel">
+                <div class="panel-section">
+                    <h2>🎥 Recording</h2>
+                    <div class="control-group">
+                        <button id="btn-start" class="btn btn-primary" disabled>
+                            <span class="btn-icon">⏺</span> Start Recording
+                        </button>
+                        <button id="btn-stop" class="btn btn-danger" disabled>
+                            <span class="btn-icon">⏹</span> Stop Recording
+                        </button>
+                    </div>
+                    <div class="recording-timer" id="recording-timer">00:00:00</div>
+                    <div class="recording-indicator" id="recording-indicator">
+                        <span class="rec-dot"></span> Ready
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h2>🎤 Voice Narration</h2>
+                    <div class="control-group">
+                        <label for="voice-text">Type your narration:</label>
+                        <textarea id="voice-text" placeholder="Type what you want the voice to say for this action..." rows="4"></textarea>
+                    </div>
+                    <div class="control-group">
+                        <label for="voice-dialect">Voice Style:</label>
+                        <select id="voice-dialect">
+                            <option value="EN-US">English (US)</option>
+                            <option value="EN-GB">English (UK)</option>
+                            <option value="EN-AU">English (Australia)</option>
+                            <option value="EN-IN">English (India)</option>
+                            <option value="ES-ES">Spanish</option>
+                            <option value="FR-FR">French</option>
+                            <option value="ZH-CN">Chinese (Mandarin)</option>
+                            <option value="JA-JP">Japanese</option>
+                            <option value="KO-KR">Korean</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <button id="btn-upload-voice" class="btn btn-secondary">
+                            <span class="btn-icon">🎵</span> Upload Voice Reference
+                        </button>
+                        <input type="file" id="voice-reference" accept="audio/*" style="display: none;">
+                        <div id="voice-reference-status" class="status-text"></div>
+                    </div>
+                    <button id="btn-generate-voice" class="btn btn-secondary" disabled>
+                        <span class="btn-icon">🔊</span> Generate Voice
+                    </button>
+                    <div id="voice-preview" class="audio-preview"></div>
+                </div>
+
+                <div class="panel-section">
+                    <h2>📝 Text Annotations</h2>
+                    <div class="control-group">
+                        <label for="annotation-text">Annotation text:</label>
+                        <input type="text" id="annotation-text" placeholder="Enter annotation text...">
+                    </div>
+                    <div class="control-group">
+                        <label>Position:</label>
+                        <div class="position-controls">
+                            <label><input type="radio" name="pos" value="top-left" checked> Top Left</label>
+                            <label><input type="radio" name="pos" value="top-right"> Top Right</label>
+                            <label><input type="radio" name="pos" value="bottom-left"> Bottom Left</label>
+                            <label><input type="radio" name="pos" value="bottom-right"> Bottom Right</label>
+                            <label><input type="radio" name="pos" value="center"> Center</label>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>Color:</label>
+                        <input type="color" id="annotation-color" value="#ffffff">
+                        <label>Font Size: <span id="font-size-val">24</span>px</label>
+                        <input type="range" id="font-size" min="12" max="48" value="24">
+                    </div>
+                    <button id="btn-add-annotation" class="btn btn-secondary">
+                        <span class="btn-icon">📌</span> Add Annotation
+                    </button>
+                    <div id="annotations-list" class="annotations-list"></div>
+                </div>
+
+                <div class="panel-section">
+                    <h2>🎬 Export</h2>
+                    <button id="btn-assemble" class="btn btn-primary" disabled>
+                        <span class="btn-icon">🎞️</span> Assemble Video
+                    </button>
+                    <div id="assembly-status" class="status-text"></div>
+                    <a id="download-link" class="btn btn-success" style="display: none;">
+                        <span class="btn-icon">⬇️</span> Download Video
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Right Panel - Preview -->
+            <main class="preview-panel">
+                <div class="preview-header">
+                    <h2>🖥️ Screen Preview</h2>
+                    <div class="preview-info">
+                        <span id="screen-res">-- x --</span>
+                        <span id="event-count">Events: 0</span>
+                    </div>
+                </div>
+                <div class="preview-container" id="preview-container">
+                    <video id="screen-preview" autoplay muted playsinline></video>
+                    <canvas id="overlay-canvas"></canvas>
+                    <div id="click-indicator" class="click-indicator"></div>
+                    <div id="annotation-overlay" class="annotation-overlay"></div>
+                </div>
+                <div class="events-log">
+                    <h3>📋 Event Log</h3>
+                    <div id="events-log" class="log-content">
+                        <p class="log-empty">No events recorded yet. Start recording to begin tracking.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
